@@ -72,7 +72,7 @@ Make sure `input` appears in the output.
 ### 4. Run the program
 
 ```bash
-cd <your-repo-folder>
+cd hyprland-keyboard-macro
 source venv/bin/activate        # or activate.fish for fish shell
 python macro.py
 ```
