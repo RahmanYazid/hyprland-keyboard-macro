@@ -31,8 +31,13 @@ macropython/
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-url>
-cd <your-repo-folder>
+# HTTPS
+git clone https://github.com/RahmanYazid/hyprland-keyboard-macro.git
+
+# or via SSH (requires SSH key already set up on your GitHub account)
+git clone git@github.com:RahmanYazid/hyprland-keyboard-macro.git
+
+cd hyprland-keyboard-macro
 ```
 
 ### 2. Create a virtual environment and install dependencies
@@ -121,7 +126,3 @@ alias macro="~/path/to/repo/venv/bin/python ~/path/to/repo/macro.py"
 ## Disclaimer
 
 This script simulates real keyboard input at the system level. Use it responsibly — some applications/games prohibit the use of macros/auto-key tools and may apply penalties according to their own policies.
-
-## License
-
-MIT License — free to use, modify, and redistribute.
