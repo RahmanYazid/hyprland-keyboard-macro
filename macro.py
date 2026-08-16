@@ -4,12 +4,10 @@ import time
 import evdev
 from evdev import InputDevice, UInput, ecodes
 
-# --- KONFIGURASI MACRO ---
-KEY_TO_PRESS = (
-    ecodes.KEY_D
-)  # Tombol yang akan diketik otomatis (ganti sesuai kebutuhan)
-TOGGLE_KEY = ecodes.KEY_INSERT  # Tombol Toggle ON/OFF
-DELAY = 0.5  # Delay antar ketikan (detik)
+# --- CONFIG MACRO ---
+KEY_TO_PRESS = ecodes.KEY_D  # The key to be used
+TOGGLE_KEY = ecodes.KEY_INSERT  # Toggle ON/OFF
+DELAY = 0.5  # Delay
 # -------------------------
 
 is_running = False
@@ -17,7 +15,7 @@ ui = UInput()
 
 
 def find_keyboard():
-    """Cari device keyboard fisik secara otomatis."""
+    """Auto find physical keyboard"""
     devices = [InputDevice(path) for path in evdev.list_devices()]
     keyboards = []
     for dev in devices:
@@ -28,12 +26,12 @@ def find_keyboard():
 
 
 def macro_loop():
-    """Fungsi latar belakang untuk mengeksekusi ketikan otomatis."""
+    """Background process for executing automated typing."""
     global is_running
     while True:
         if is_running:
-            ui.write(ecodes.EV_KEY, KEY_TO_PRESS, 1)  # tekan
-            ui.write(ecodes.EV_KEY, KEY_TO_PRESS, 0)  # lepas
+            ui.write(ecodes.EV_KEY, KEY_TO_PRESS, 1)  # press
+            ui.write(ecodes.EV_KEY, KEY_TO_PRESS, 0)  # release
             ui.syn()
             time.sleep(DELAY)
         else:
@@ -41,17 +39,17 @@ def macro_loop():
 
 
 def listen_device(dev):
-    """Dengarkan event keyboard dari satu device."""
+    """Capture keyboard events from one device."""
     global is_running
     try:
         for event in dev.read_loop():
             if event.type == ecodes.EV_KEY and event.value == 1:  # 1 = key down
                 if event.code == TOGGLE_KEY:
                     is_running = not is_running
-                    status = "ON (AKTIF)" if is_running else "OFF (MATI)"
+                    status = "ON (ACTIVE)" if is_running else "OFF (INACTIVE)"
                     print(f"[{time.strftime('%H:%M:%S')}] Status Macro: {status}")
     except OSError:
-        pass  # device dicabut / error baca, abaikan thread ini
+        pass
 
 
 def main():
@@ -76,11 +74,10 @@ def main():
     print("=============================================")
     print("Tekan Ctrl+C di terminal untuk menghentikan program.\n")
 
-    # Jalankan thread pemutar macro
     macro_thread = threading.Thread(target=macro_loop, daemon=True)
     macro_thread.start()
 
-    # Dengarkan semua keyboard yang terdeteksi (kadang ada lebih dari satu device)
+    #
     listener_threads = []
     for kb in keyboards:
         t = threading.Thread(target=listen_device, args=(kb,), daemon=True)
