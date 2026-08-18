@@ -83,8 +83,8 @@ If successful, the program will list the detected keyboards and be ready to use.
 
 1. Run `macro.py` — keep the terminal running in the background
 2. Focus your cursor on the target application/text field
-3. Press **Insert** to activate the macro (the terminal will print `ON (AKTIF)`)
-4. Press **Insert** again to deactivate it (`OFF (MATI)`)
+3. Press **Insert** to activate the macro (the terminal will print `ON (ACTIVE)`)
+4. Press **Insert** again to deactivate it (`OFF (INACTIVE)`)
 5. Press **Ctrl+C** in the terminal to fully exit the program
 
 ## Configuration
@@ -125,4 +125,4 @@ alias macro="~/path/to/repo/venv/bin/python ~/path/to/repo/macro.py"
 
 ## Disclaimer
 
-This script simulates real keyboard input at the system level. Use it responsibly — some applications/games prohibit the use of macros/auto-key tools and may apply penalties according to their own policies.
+This script simulates real keyboard input at the system level. Use it responsibly, some applications/games prohibit the use of macros/auto-key tools and may apply penalties according to their own policies.

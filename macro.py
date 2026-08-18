@@ -6,7 +6,7 @@ from evdev import InputDevice, UInput, ecodes
 
 # --- CONFIG MACRO ---
 KEY_TO_PRESS = ecodes.KEY_D  # The key to be used
-TOGGLE_KEY = ecodes.KEY_INSERT  # Toggle ON/OFF
+TOGGLE_KEY = ecodes.KEY_GRAVE  # Toggle ON/OFF
 DELAY = 0.5  # Delay
 # -------------------------
 
@@ -54,25 +54,27 @@ def listen_device(dev):
 
 def main():
     print("=============================================")
-    print("   ARCH LINUX (HYPRLAND) AUTO KEYBOARD MACRO  ")
-    print("   (versi evdev - kompatibel Wayland)         ")
+    print("    ARCH LINUX (HYPRLAND) AUTO KEYBOARD MACRO  ")
+    print("    (evdev version - Wayland compatible)      ")
     print("=============================================")
-    print(f" Tombol Macro   : '{ecodes.KEY[KEY_TO_PRESS]}'")
-    print(f" Toggle ON/OFF  : [{ecodes.KEY[TOGGLE_KEY]}]")
-    print(f" Delay Interval : {DELAY} detik")
+    print(f" Macro Key     : '{ecodes.KEY[KEY_TO_PRESS]}'")
+    print(f" Toggle ON/OFF : [{ecodes.KEY[TOGGLE_KEY]}]")
+    print(f" Delay Interval: {DELAY} seconds")
     print("=============================================")
 
     keyboards = find_keyboard()
     if not keyboards:
-        print("ERROR: Tidak ada keyboard terdeteksi di /dev/input/.")
-        print("Pastikan user sudah masuk grup 'input' lalu logout/login ulang.")
+        print("ERROR: No keyboards detected in /dev/input/.")
+        print(
+            "Ensure your user is added to the 'input' group, then log out and log back in."
+        )
         return
 
-    print("Keyboard terdeteksi:")
+    print("Keyboards detected:")
     for kb in keyboards:
         print(f"  - {kb.path} ({kb.name})")
     print("=============================================")
-    print("Tekan Ctrl+C di terminal untuk menghentikan program.\n")
+    print("Press Ctrl+C in the terminal to stop the program.\n")
 
     macro_thread = threading.Thread(target=macro_loop, daemon=True)
     macro_thread.start()
