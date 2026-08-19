@@ -5,7 +5,9 @@ import evdev
 from evdev import InputDevice, UInput, ecodes
 
 # --- CONFIG MACRO ---
-KEY_TO_PRESS = ecodes.KEY_D  # The key to be used
+KEY_TO_PRESS = (
+    ecodes.KEY_D
+)  # The key to be used (you can change the key to whatever you want)
 TOGGLE_KEY = ecodes.KEY_GRAVE  # Toggle ON/OFF
 DELAY = 0.5  # Delay
 # -------------------------
